@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faWind, faWater,faDroplet} from '@fortawesome/free-solid-svg-icons';
+import './global.css'
 
 const Weather = () => {
     const [location, setLocation] = useState({});
@@ -24,17 +25,13 @@ const Weather = () => {
     },[]);
     const date = new Date();
     const today = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDay()}`;
-    console.log(forecast);
     return (
-        <div style={{backgroundColor: "gray"}}>
-            <p>Hello</p>
-            {location.name}
-            {location.region}
-            {current.temp_c}
+        <div style={{backgroundColor: "gray"}} className='static'>
+        
             {/* container */}
-            <div>
+            <div  className="bg-blue-500 text-white p-4"  style={{border:"1px solid red"}}>
                 {/* name temp icon */}
-                <div style={{border:"1px solid red"}}>
+                <div>
                     <div>
                         <div>{location.region}</div>
                         <div>{today}</div>
@@ -65,7 +62,7 @@ const Weather = () => {
                 {/* forecast */}
                 <div>
                     {forecast.map((day,idx)=>{
-                        return <div> <p>Mon</p><img src={day.day.condition.icon}></img><p key={idx}>{day.day.avgtemp_c}&deg;C</p></div>
+                        return <div key={idx}> <p>Mon</p><img src={day.day.condition.icon} alt='weather icon'/><p key={idx}>{day.day.avgtemp_c}&deg;C</p></div>
                     })}
                 </div>
             </div>
