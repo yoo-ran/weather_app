@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faWind, faWater,faDroplet} from '@fortawesome/free-solid-svg-icons';
-import './global.css'
+import './output.css'
 
 const Weather = () => {
     const [location, setLocation] = useState({});
@@ -29,7 +29,7 @@ const Weather = () => {
         <div style={{backgroundColor: "gray"}} className='static'>
         
             {/* container */}
-            <div  className="bg-blue-500 text-white p-4"  style={{border:"1px solid red"}}>
+            <div  className="md:container md:mx-auto"  style={{border:"1px solid red"}}>
                 {/* name temp icon */}
                 <div>
                     <div>
