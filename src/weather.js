@@ -26,43 +26,46 @@ const Weather = () => {
     const date = new Date();
     const today = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDay()}`;
     return (
-        <div style={{backgroundColor: "gray"}} className='static'>
+        <div style={{backgroundColor: "whitesmoke"}} className='h-screen grid place-items-center'>
         
             {/* container */}
-            <div  className="md:container md:mx-auto"  style={{border:"1px solid red"}}>
+            <div  className="flex flex-col justify-between gap-2 h-3/6 w-5/12  "  style={{border:"1px solid red"}}>
                 {/* name temp icon */}
-                <div>
-                    <div>
-                        <div>{location.region}</div>
-                        <div>{today}</div>
-                        <div>{current.temp_c}</div>
-                        <div>{condition.text}</div>
+                <div className='grid grid-cols-2 h-full' style={{border:"1px solid red"}}>
+                    <div className='grid grid-rows-5'>
+                        <div className='md:text-3xl row-span-1 flex items-center font-Rampart '>{location.region}</div>
+                        <div className='row-span-1 flex items-center'>{today}</div>
+                        <div className='md:text-7xl row-span-2 flex items-center'>{current.temp_c}&deg;C</div>
+                        <div className='flex items-center'>{condition.text}</div>
                     </div>
-                    <div>
-                        <img src={condition.icon} alt=''/>
+                    <div className='grid place-items-center' style={{border:"1px solid red"}}>
+                        <img src={condition.icon} alt={condition.text}/>
                     </div>
                 </div>
 
                 {/* wind */}
-                <div>
-                    <div>
+                <div className='grid grid-cols-3 w-6/12' style={{border:"1px solid red"}}>
+                    <div className='grid place-items-center gap-2'>
                         <FontAwesomeIcon icon={faWind} />
                         <p>{current.wind_mph}mph</p>
                     </div>
-                    <div>
+                    <div className='grid place-items-center gap-2'>
                         <FontAwesomeIcon icon={faWater} />
                         <p>{current.precip_mm}mm</p>
                     </div>
-                    <div>
+                    <div className='grid place-items-center gap-2'> 
                         <FontAwesomeIcon icon={faDroplet} />
                         <p>{current.humidity}</p>
                     </div>
                 </div>
 
                 {/* forecast */}
-                <div>
+                <div className='grid grid-cols-7 ' style={{border:"1px solid red"}}>
                     {forecast.map((day,idx)=>{
-                        return <div key={idx}> <p>Mon</p><img src={day.day.condition.icon} alt='weather icon'/><p key={idx}>{day.day.avgtemp_c}&deg;C</p></div>
+                        return <div className='grid place-items-center' key={idx}> 
+                        <p>Mon</p>
+                        <img src={day.day.condition.icon} alt='weather icon'/>
+                        <p key={idx}>{day.day.avgtemp_c}&deg;C</p></div>
                     })}
                 </div>
             </div>
