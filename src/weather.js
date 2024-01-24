@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faWind, faWater,faDroplet} from '@fortawesome/free-solid-svg-icons';
 import './output.css'
 
+// e8f2f8 저녁
+// #e8eaf8 밤
+// #f8eee8 오후
+
 const Weather = () => {
     const [location, setLocation] = useState({});
     const [current, setCurrent] = useState({});
@@ -24,48 +28,74 @@ const Weather = () => {
         fetch();
     },[]);
     const date = new Date();
-    const today = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDay()}`;
+    const today = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDate()}`;
+    const weekConst = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const week = [];
+    for (let i = 0; i < 7; i++) {
+        week[i] = (date.getDay()+i>=7) ?  weekConst[(date.getDay()+i)-7] :weekConst[date.getDay()+i];
+    }
+    
     return (
-        <div style={{backgroundColor: "whitesmoke"}} className='h-screen grid place-items-center'>
-        
+        <div className='h-screen flex flex-col justify-center items-center gap-y-10 bg-gray-100'>
+            <h1 className='text-5xl font-bold font-Bebas text-slate-50 drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]'>Weather forecast</h1>
             {/* container */}
-            <div  className="flex flex-col justify-between gap-2 h-3/6 w-5/12  "  style={{border:"1px solid red"}}>
+            <div  className='flex flex-col justify-center gap-y-10 p-8 h-3/6 w-96 rounded-xl shadow-2xl bg-indigo-100'>
                 {/* name temp icon */}
-                <div className='grid grid-cols-2 h-full' style={{border:"1px solid red"}}>
-                    <div className='grid grid-rows-5'>
-                        <div className='md:text-3xl row-span-1 flex items-center font-Rampart '>{location.region}</div>
-                        <div className='row-span-1 flex items-center'>{today}</div>
-                        <div className='md:text-7xl row-span-2 flex items-center'>{current.temp_c}&deg;C</div>
-                        <div className='flex items-center'>{condition.text}</div>
+                <div className='grid grid-cols-2 h-full place-items-end'>
+
+                    <div className='grid gap-y-10'>
+                        <div>
+                            <p className='text-xl font-medium'>{location.region}</p>
+                            <p className='text-neutral-500'>{today}</p>
+                        </div>
+
+                        <div>
+                            <p className='text-8xl flex inline-start'>
+                                <span>{current.temp_c}</span><span className='text-xl'>&deg;C</span>
+                            </p>
+                            <p className='flex items-center text-neutral-500'>
+                                <img className='w-1/6' src={condition.icon} alt={condition.text}/>
+                                {condition.text}
+                            </p>
+                        </div>
+                
                     </div>
-                    <div className='grid place-items-center' style={{border:"1px solid red"}}>
-                        <img src={condition.icon} alt={condition.text}/>
+                    <div className='grid grid-rows-3 gap-y-5 h-5/6 text-neutral-500'>
+                        <div className='grid place-items-center gap-y-1'>
+                            <FontAwesomeIcon icon={faWind} className='text-lg'/>
+                            <p>
+                                <span className='text-base'>{current.wind_mph}</span>   
+                                <span className='text-xs'>mph</span> 
+                            </p>
+                        </div>
+                        <div className='grid place-items-center gap-y-1'>
+                            <FontAwesomeIcon icon={faWater} className='text-lg'/>
+                            <p>
+                                <span className='text-base'>{current.precip_mm}</span>
+                                <span className='text-xs'>mm</span>
+                                
+                            </p>
+                        </div>
+                        <div className='grid place-items-center gap-y-1'> 
+                            <FontAwesomeIcon icon={faDroplet} className='text-lg' />
+                            <p>
+                                <span className='text-base'>{current.humidity}</span>
+                                <span className='text-xs'>%</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 {/* wind */}
-                <div className='grid grid-cols-3 w-6/12' style={{border:"1px solid red"}}>
-                    <div className='grid place-items-center gap-2'>
-                        <FontAwesomeIcon icon={faWind} />
-                        <p>{current.wind_mph}mph</p>
-                    </div>
-                    <div className='grid place-items-center gap-2'>
-                        <FontAwesomeIcon icon={faWater} />
-                        <p>{current.precip_mm}mm</p>
-                    </div>
-                    <div className='grid place-items-center gap-2'> 
-                        <FontAwesomeIcon icon={faDroplet} />
-                        <p>{current.humidity}</p>
-                    </div>
-                </div>
+               
 
                 {/* forecast */}
-                <div className='grid grid-cols-7 ' style={{border:"1px solid red"}}>
+                <div className='grid grid-cols-7 gap-x-3'>
                     {forecast.map((day,idx)=>{
                         return <div className='grid place-items-center' key={idx}> 
-                        <p>Mon</p>
-                        <img src={day.day.condition.icon} alt='weather icon'/>
-                        <p key={idx}>{day.day.avgtemp_c}&deg;C</p></div>
+                        <p className='text-xs text-neutral-500'>{week[idx]}</p>
+                        <img className='w-8' src={day.day.condition.icon} alt='weather icon'/>
+                        <p key={idx} className='text-sm text-neutral-900'>{day.day.avgtemp_c}&deg;C</p></div>
                     })}
                 </div>
             </div>
