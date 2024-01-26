@@ -36,50 +36,50 @@ const Weather = () => {
     }
     
     return (
-        <div className='h-screen flex flex-col justify-center items-center gap-y-10 bg-gray-100'>
-            <h1 className='text-5xl font-bold font-Bebas text-slate-50 drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]'>Weather forecast</h1>
+        <div className='h-screen w-full flex flex-col justify-center items-center gap-y-10 bg-gray-100'>
+            {/* <h1 className='text-5xl font-bold font-Bebas text-slate-50 drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]'>Weather forecast</h1> */}
             {/* container */}
-            <div  className='flex flex-col justify-center gap-y-10 p-8 h-3/6 w-96 rounded-xl shadow-2xl bg-indigo-100'>
+            <div  className='flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl bg-indigo-100'>
                 {/* name temp icon */}
                 <div className='grid grid-cols-2 h-full place-items-end'>
 
-                    <div className='grid gap-y-10'>
+                    <div className='flex flex-col justify-between h-full'>
                         <div>
-                            <p className='text-xl font-medium'>{location.region}</p>
-                            <p className='text-neutral-500'>{today}</p>
+                            <p className='text-lg font-medium md:text-2xl'>{location.region}</p>
+                            <p className='text-sm md:text-base text-neutral-500'>{today}</p>
                         </div>
 
                         <div>
-                            <p className='text-8xl flex inline-start'>
-                                <span>{current.temp_c}</span><span className='text-xl'>&deg;C</span>
+                            <p className=' flex inline-start' >
+                                <span className='text-7xl md:text-9xl'>{current.temp_c}</span><span className='text-xl'>&deg;C</span>
                             </p>
                             <p className='flex items-center text-neutral-500'>
                                 <img className='w-1/6' src={condition.icon} alt={condition.text}/>
                                 {condition.text}
                             </p>
                         </div>
-                
                     </div>
-                    <div className='grid grid-rows-3 gap-y-5 h-5/6 text-neutral-500'>
+
+                    <div className='grid grid-rows-3 gap-y-5 h-4/6 md:h-5/6 text-neutral-500'>
                         <div className='grid place-items-center gap-y-1'>
-                            <FontAwesomeIcon icon={faWind} className='text-lg'/>
+                            <FontAwesomeIcon icon={faWind} className='text-m md:text-lg'/>
                             <p>
-                                <span className='text-base'>{current.wind_mph}</span>   
+                                <span className='text-sm md:text-m '>{current.wind_mph}</span>   
                                 <span className='text-xs'>mph</span> 
                             </p>
                         </div>
                         <div className='grid place-items-center gap-y-1'>
-                            <FontAwesomeIcon icon={faWater} className='text-lg'/>
+                            <FontAwesomeIcon icon={faWater} className='text-m md:text-lg'/>
                             <p>
-                                <span className='text-base'>{current.precip_mm}</span>
+                                <span className='text-sm md:text-m'>{current.precip_mm}</span>
                                 <span className='text-xs'>mm</span>
                                 
                             </p>
                         </div>
                         <div className='grid place-items-center gap-y-1'> 
-                            <FontAwesomeIcon icon={faDroplet} className='text-lg' />
+                            <FontAwesomeIcon icon={faDroplet} className='text-m md:text-lg' />
                             <p>
-                                <span className='text-base'>{current.humidity}</span>
+                                <span className='text-sm md:text-m'>{current.humidity}</span>
                                 <span className='text-xs'>%</span>
                             </p>
                         </div>
@@ -95,7 +95,7 @@ const Weather = () => {
                         return <div className='grid place-items-center' key={idx}> 
                         <p className='text-xs text-neutral-500'>{week[idx]}</p>
                         <img className='w-8' src={day.day.condition.icon} alt='weather icon'/>
-                        <p key={idx} className='text-sm text-neutral-900'>{day.day.avgtemp_c}&deg;C</p></div>
+                        <p key={idx} className='text-xs text-neutral-900'>{day.day.avgtemp_c}&deg;C</p></div>
                     })}
                 </div>
             </div>

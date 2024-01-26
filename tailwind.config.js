@@ -6,6 +6,10 @@ module.exports = {
       fontFamily: {
        Bebas: ['Bebas Neue'],
       },
+      maxHeight: {
+        '128': '32rem',
+        "100":"30rem"
+      }
     },
   },
   plugins: [],
