@@ -39,7 +39,6 @@ const Weather = () => {
         <div className='h-screen w-full flex flex-col justify-center items-center gap-y-10 bg-gray-100'>
             {/* <h1 className='text-5xl font-bold font-Bebas text-slate-50 drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]'>Weather forecast</h1> */}
             {/* container */}
-            {/*  */}
             <div  className='flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl bg-indigo-100'>
                 {/* name temp icon */}
                 <div className='grid grid-cols-2 h-full place-items-end'>
