@@ -13,6 +13,7 @@ const Weather = () => {
     const [current, setCurrent] = useState({});
     const [condition, setCondition] = useState({});
     const [forecast, setForecast] = useState([])
+
     useEffect(()=>{
         const fetch = async() =>{
             try{
@@ -27,6 +28,7 @@ const Weather = () => {
         };
         fetch();
     },[]);
+    
     const date = new Date();
     const today = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDate()}`;
     const weekConst = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
