@@ -2,26 +2,34 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faWind, faWater,faDroplet} from '@fortawesome/free-solid-svg-icons';
-import './output.css'
 
 // e8f2f8 저녁
 // #e8eaf8 밤
 // #f8eee8 오후
+
+import sunsetImg from "./assets/sunset.webp"
+import sunriseImg from "./assets/sunrise.webp"
+import moonriseImg from "./assets/moonrise.jpg"
 
 const Weather = () => {
     const [location, setLocation] = useState({});
     const [current, setCurrent] = useState({});
     const [condition, setCondition] = useState({});
     const [forecast, setForecast] = useState([])
+    const [background, setBackground] = useState("")
+    const [astro, setAstro] = useState({})
+
+
 
     useEffect(()=>{
         const fetch = async() =>{
             try{
-                const res = await axios.get("http://api.weatherapi.com/v1/forecast.json?key=e6494ccd0346472e95063525241801&q=Vancouver&days=7&aqi=no&alerts=no");
+                const res = await axios.get("http://api.weatherapi.com/v1/forecast.json?key=4b245edfef884ddca9200821242506&q=Vancouver&days=7&aqi=no&alerts=no");
                 setLocation(res.data.location);
                 setCurrent(res.data.current);
                 setCondition(res.data.current.condition);
                 setForecast(res.data.forecast.forecastday)
+                setAstro(res.data.forecast.forecastday[0].astro)
             }catch(e){
                 console.log(e);
             }
@@ -36,14 +44,45 @@ const Weather = () => {
     for (let i = 0; i < 7; i++) {
         week[i] = (date.getDay()+i>=7) ?  weekConst[(date.getDay()+i)-7] :weekConst[date.getDay()+i];
     }
+
     
+    useEffect(()=>{
+        let sunrise = astro.sunrise;
+        // sunrise = sunrise.slice(0,2) +sunrise.slice(3,5);
+        let sunset = astro.sunset;
+        // sunset = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
+        let moonrise = astro.moonrise;
+        // moonrise = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
+        
+        let currTime = String(date.getHours())+ String(date.getMinutes())
+     
+    if(currTime === sunrise){
+        setBackground(sunriseImg)
+    }else if(currTime === sunset){
+        setBackground(sunsetImg)
+
+    }else if(currTime === moonrise){
+        setBackground(moonriseImg)
+
+    }else{
+        setBackground(sunriseImg)
+    }
+
+    },[])
+
+    currTime = moonrise
+
+console.log(background);
+
     return (
         <div className='h-screen w-full flex flex-col justify-center items-center gap-y-10 bg-gray-100'>
             {/* <h1 className='text-5xl font-bold font-Bebas text-slate-50 drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]'>Weather forecast</h1> */}
             {/* container */}
-            <div  className='flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl bg-indigo-100'>
+            <div  
+            style={{ backgroundImage: `url(${background})` }}
+            className={`flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl`}>
                 {/* name temp icon */}
-                <div className='grid grid-cols-2 h-full place-items-end'>
+                <div className={`grid grid-cols-2 h-full place-items-end ${currTime===moonrise ? "text-white":""}`}>
 
                     <div className='flex flex-col justify-between h-full'>
                         <div>
