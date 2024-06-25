@@ -71,7 +71,6 @@ const Weather = () => {
 
     // currTime = moonrise
 
-console.log(background);
 
     return (
         <div className='h-screen w-full flex flex-col justify-center items-center gap-y-10 bg-gray-100'>
@@ -81,8 +80,8 @@ console.log(background);
             // style={{ backgroundImage: `url(${background})` }}
             className={`flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl`}>
                 {/* name temp icon */}
-                <div className={`grid grid-cols-2 h-full place-items-end ${currTime===moonrise ? "text-white":""}`}>
-
+                <div className={`grid grid-cols-2 h-full place-items-end `}>
+                {/* ${currTime===moonrise ? "text-white":""} */}
                     <div className='flex flex-col justify-between h-full'>
                         <div>
                             <p className='text-lg font-medium md:text-2xl'>{location.region}</p>
