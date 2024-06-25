@@ -46,15 +46,15 @@ const Weather = () => {
     }
 
     
+    let sunrise = astro.sunrise;
+    // sunrise = sunrise.slice(0,2) +sunrise.slice(3,5);
+    let sunset = astro.sunset;
+    // sunset = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
+    let moonrise = astro.moonrise;
+    // moonrise = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
+    
+    let currTime = String(date.getHours())+ String(date.getMinutes())
     useEffect(()=>{
-        let sunrise = astro.sunrise;
-        // sunrise = sunrise.slice(0,2) +sunrise.slice(3,5);
-        let sunset = astro.sunset;
-        // sunset = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
-        let moonrise = astro.moonrise;
-        // moonrise = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
-        
-        let currTime = String(date.getHours())+ String(date.getMinutes())
      
     if(currTime === sunrise){
         setBackground(sunriseImg)
