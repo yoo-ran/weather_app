@@ -26,7 +26,7 @@ const Weather = () => {
     useEffect(()=>{
         const fetch = async() =>{
             try{
-                const res = await axios.get("http://api.weatherapi.com/v1/forecast.json?key=4b245edfef884ddca9200821242506&q=Vancouver&days=7&aqi=no&alerts=no");
+                const res = await axios.get("https://api.weatherapi.com/v1/forecast.json?key=4b245edfef884ddca9200821242506&q=Vancouver&days=1&aqi=no&alerts=no");
                 setLocation(res.data.location);
                 setCurrent(res.data.current);
                 setCondition(res.data.current.condition);
