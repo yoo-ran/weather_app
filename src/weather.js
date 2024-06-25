@@ -17,7 +17,9 @@ const Weather = () => {
     const [condition, setCondition] = useState({});
     const [forecast, setForecast] = useState([])
     const [background, setBackground] = useState("")
-    const [astro, setAstro] = useState({})
+    const [sunrise, setSunrise] = useState("")
+    const [sunset, setSunset] = useState("")
+    const [moonrise, setMoonrise] = useState("")
 
 
 
@@ -29,7 +31,9 @@ const Weather = () => {
                 setCurrent(res.data.current);
                 setCondition(res.data.current.condition);
                 setForecast(res.data.forecast.forecastday)
-                setAstro(res.data.forecast.forecastday[0].astro)
+                setSunrise(res.data.forecast.forecastday[0].astro.sunrise)
+                setSunset(res.data.forecast.forecastday[0].astro.sunset)
+                setMoonrise(res.data.forecast.forecastday[0].astro.moonrise)
             }catch(e){
                 console.log(e);
             }
@@ -45,29 +49,32 @@ const Weather = () => {
         week[i] = (date.getDay()+i>=7) ?  weekConst[(date.getDay()+i)-7] :weekConst[date.getDay()+i];
     }
 
+    console.log(sunrise);
     
-    let sunrise = astro.sunrise;
-    sunrise = sunrise.slice(0,2) +sunrise.slice(3,5);
-    let sunset = astro.sunset;
-    sunset = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
-    let moonrise = astro.moonrise;
-    moonrise = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
+    
+    var sunriseStr = sunrise.slice(0,2) + sunrise.slice(3,5)
+    // setSunrise(sunrise.slice(0,2) +sunrise.slice(3,5))
+    var sunsetStr = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
+    var moonriseStr = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
     
     let currTime = String(date.getHours())+ String(date.getMinutes())
+    console.log(sunsetStr);
+    console.log(currTime);
+    
     useEffect(()=>{
-     
-        if(currTime === sunrise){
+        
+        if(currTime === sunriseStr){
             setBackground(sunriseImg)
-        }else if(currTime === sunset){
+        }else if(currTime === sunsetStr){
             setBackground(sunsetImg)
 
-        }else if(currTime === moonrise){
+        }else if(currTime === moonriseStr){
             setBackground(moonriseImg)
 
         }else{
-            setBackground(sunsetImg)
+            // setBackground(sunriseImg)
         }
-    },[])
+    },[currTime,sunriseStr, sunsetStr, moonriseStr])
 
 
 
@@ -79,7 +86,9 @@ const Weather = () => {
             style={{ backgroundImage: `url(${background})` }}
             className={`flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl`}>
                 {/* name temp icon */}
-                <div className={`grid grid-cols-2 h-full place-items-end `}>
+                <div className={`grid grid-cols-2 h-full place-items-end 
+                ${background === moonriseImg ? "text-white":""}
+                `}>
                     <div className='flex flex-col justify-between h-full'>
                         <div>
                             <p className='text-lg font-medium md:text-2xl'>{location.region}</p>
