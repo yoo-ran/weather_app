@@ -46,30 +46,29 @@ const Weather = () => {
     }
 
     
-    // let sunrise = astro.sunrise;
-    // // sunrise = sunrise.slice(0,2) +sunrise.slice(3,5);
-    // let sunset = astro.sunset;
-    // // sunset = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
-    // let moonrise = astro.moonrise;
-    // // moonrise = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
+    let sunrise = astro.sunrise;
+    sunrise = sunrise.slice(0,2) +sunrise.slice(3,5);
+    let sunset = astro.sunset;
+    sunset = Number(sunset.slice(0,2))+12 +sunset.slice(3,5)
+    let moonrise = astro.moonrise;
+    moonrise = Number(moonrise.slice(0,2))+12 + moonrise.slice(3,5)
     
-    // let currTime = String(date.getHours())+ String(date.getMinutes())
+    let currTime = String(date.getHours())+ String(date.getMinutes())
     useEffect(()=>{
      
-        // if(currTime === sunrise){
-        //     setBackground(sunriseImg)
-        // }else if(currTime === sunset){
-        //     setBackground(sunsetImg)
+        if(currTime === sunrise){
+            setBackground(sunriseImg)
+        }else if(currTime === sunset){
+            setBackground(sunsetImg)
 
-        // }else if(currTime === moonrise){
-        //     setBackground(moonriseImg)
+        }else if(currTime === moonrise){
+            setBackground(moonriseImg)
 
-        // }else{
-        //     setBackground(sunriseImg)
-        // }
+        }else{
+            setBackground(sunsetImg)
+        }
     },[])
 
-    // currTime = moonrise
 
 
     return (
@@ -77,11 +76,10 @@ const Weather = () => {
             {/* <h1 className='text-5xl font-bold font-Bebas text-slate-50 drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]'>Weather forecast</h1> */}
             {/* container */}
             <div  
-            // style={{ backgroundImage: `url(${background})` }}
+            style={{ backgroundImage: `url(${background})` }}
             className={`flex flex-col justify-center gap-y-10 p-8 h-4/6 max-w-80 md:w-96 md:max-h-100 lg:max-h-128 rounded-xl shadow-2xl`}>
                 {/* name temp icon */}
                 <div className={`grid grid-cols-2 h-full place-items-end `}>
-                {/* ${currTime===moonrise ? "text-white":""} */}
                     <div className='flex flex-col justify-between h-full'>
                         <div>
                             <p className='text-lg font-medium md:text-2xl'>{location.region}</p>
