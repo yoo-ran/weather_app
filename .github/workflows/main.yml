@@ -27,4 +27,4 @@ jobs:
         username: u909776080
         password: ${{ secrets.FTP_DEPLOY }}
         local-dir: build/
-        server-dir: ./weather.yoorankim.com/
+        server-dir: weather/
