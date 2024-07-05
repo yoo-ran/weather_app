@@ -24,7 +24,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: weather.yoorankim.com
-        username: u909776080
+        username: u909776080.weather.yoorankim.com
         password: ${{ secrets.FTP_DEPLOY }}
         local-dir: build/
         server-dir: weather.yoorankim.com/
